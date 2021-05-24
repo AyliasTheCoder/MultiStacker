@@ -1,0 +1,29 @@
+Commands
+- stacki (_int_)
+    - puts the number on the int stack
+- stackf (_float_)
+    - puts the number on the float stack
+- stacks (_str_)
+    - puts the number on the str stack
+- stackb (_bool_)
+    - puts the number on the bool stack
+- printi
+    - pops and prints out a value from the int stack
+- printf
+    - pops and prints out a value from the float stack
+- prints
+    - pops and prints out a value from the str stack
+- printb
+    - pops and prints out a value from the bool stack
+- opi
+    - pops the top 2 values on the int stack, and then does the operation (popped from the str stack) on them, and then puts the result back on the stack
+- opf
+    - pops the top 2 values on the int stack, and then does the operation (popped from the str stack) on them, and then puts the result back on the stack
+- and
+    - pops the top 2 values of the bool stack, and does the _and_ function on them, and puts the result on the stack
+- or
+    - pops the top 2 values of the bool stack, and does the _or_ function on them, and puts the result on the stack
+- greateri
+    - pops the top 2 values of the int stack and puts the result of the greater than function on the bool stack
+- lessi
+    - pops the top 2 values of the int stack and puts the result of the less than function on the bool stack
