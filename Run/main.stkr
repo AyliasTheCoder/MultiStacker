@@ -1,6 +1,22 @@
-stacks Hello
-stacks World!
-revs
 stacki 2
+stacki 3
+clonei
+stacks Input
+stacks Number
+stacks A
+revs
 merge
-prints
+stacks B
+stacks Number
+stacks Input
+merge
+stacks Operation
+stacks Input
+merge
+revs
+inputf
+inputf
+revf
+inputs
+opf
+printf

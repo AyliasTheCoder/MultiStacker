@@ -16,14 +16,34 @@ Commands
 - printb
     - pops and prints out a value from the bool stack
 - opi
-    - pops the top 2 values on the int stack, and then does the operation (popped from the str stack) on them, and then puts the result back on the stack
+    - pops the top 2 values on the int stack, and then does the operation (popped from the str stack) on them, and then pushes the result back on the stack
 - opf
-    - pops the top 2 values on the int stack, and then does the operation (popped from the str stack) on them, and then puts the result back on the stack
+    - pops the top 2 values on the int stack, and then does the operation (popped from the str stack) on them, and then pushes the result back on the stack
 - and
-    - pops the top 2 values of the bool stack, and does the _and_ function on them, and puts the result on the stack
+    - pops the top 2 values of the bool stack, and does the _and_ function on them, and pushes the result on the stack
 - or
-    - pops the top 2 values of the bool stack, and does the _or_ function on them, and puts the result on the stack
+    - pops the top 2 values of the bool stack, and does the _or_ function on them, and pushes the result on the stack
 - greateri
-    - pops the top 2 values of the int stack and puts the result of the greater than function on the bool stack
+    - pops the top 2 values of the int stack and pushes the result of the greater than function on the bool stack
 - lessi
-    - pops the top 2 values of the int stack and puts the result of the less than function on the bool stack
+    - pops the top 2 values of the int stack and pushes the result of the less than function on the bool stack
+- gequali
+    - pops the top 2 values of the int stack and pushes the result of the greater than or equal to function on the bool stack
+- lequali
+    - pops the top 2 values of the int stack and pushes the result of the less than or equal to function on the bool stack
+- greaterf
+    - pops the top 2 values of the float stack and pushes the result of the greater than function on the bool stack
+- lessf
+    - pops the top 2 values of the float stack and pushes the result of the less than function on the bool stack
+- gequalf
+    - pops the top 2 values of the float stack and pushes the result of the greater than or equal to function on the bool stack
+- lequalf
+    - pops the top 2 values of the float stack and pushes the result of the less than or equal to function on the bool stack
+- inputs
+    - get a string input from the user, and push it on the string stack, with the prompt being popped from the string stack
+- inputi
+    - get an int input from the user, and push it on the int stack, with the prompt being popped from the string stack
+- inputf
+    - get a float input from the user, and push it on the float stack, with the prompt being popped from the string stack
+- inputb
+    - get a bool input from the user, and push it on the bool stack, with the prompt being popped from the string stack
