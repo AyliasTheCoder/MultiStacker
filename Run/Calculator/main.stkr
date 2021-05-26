@@ -4,9 +4,15 @@ pushs Input Operation:
 revs
 inputf
 inputf
+revf
 inputs
 opf
+revb
 cloneb
-if_printi
+if_strf
 not
-if_printb
+if_strb
+pushs The result was
+pushi 2
+merge
+prints

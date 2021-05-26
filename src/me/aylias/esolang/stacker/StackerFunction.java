@@ -43,8 +43,10 @@ public class StackerFunction {
         registerAll4("and");
         registerAll4("pop");
         registerAll4("flip");
+        registerAll4("str");
 
         registerNumeric("op");
+        registerNumeric("random");
 
         registerSingle("for", "myFor");
         registerSingle("while", "myWhile");
@@ -56,6 +58,8 @@ public class StackerFunction {
         registerSingle("arun");
         registerSingle("merge");
         registerSingle("not");
+        registerSingle("itof");
+        registerSingle("ftoi");
     }
 
     public void start() {
@@ -125,13 +129,19 @@ public class StackerFunction {
     }
 
     public void executeLine(String line) {
-        lineNumber++;
-
         if (line.startsWith("#") || line.equals("")) return;
 
         if (line.startsWith("if_")) {
             if (!boolStack.pop()) return;
-            line = line.replace("if_", "");
+            executeLine(line.replace("if_", ""));
+            return;
+        }
+
+        if (line.startsWith("for_")) {
+            int count = intStack.pop();
+            for (int i = 0; i < count; i++)
+                executeLine(line.replace("for_", ""));
+            return;
         }
 
         if (line.equals("stop")) {
@@ -162,52 +172,6 @@ public class StackerFunction {
             return;
         }
 
-        if (line.startsWith("s_pushs")) {
-            caller.pushs(line.replace("s_pushs ", ""));
-            return;
-        }
-
-        if (line.startsWith("s_pushi")) {
-            caller.pushi(toInt(
-                    firstArg(line, "s_pushi")));
-            return;
-        }
-
-        if (line.startsWith("s_pushf")) {
-            caller.pushf(toFloat(
-                    firstArg(line, "s_pushf")));
-            return;
-        }
-
-        if (line.startsWith("s_pushb")) {
-            caller.pushb(toBool(
-                    firstArg(line, "s_pushb")));
-            return;
-        }
-
-        if (line.startsWith("m_pushs")) {
-            main.pushs(line.replace("m_pushs ", ""));
-            return;
-        }
-
-        if (line.startsWith("m_pushi")) {
-            main.pushi(toInt(
-                    firstArg(line, "m_pushi")));
-            return;
-        }
-
-        if (line.startsWith("m_pushf")) {
-            main.pushf(toFloat(
-                    firstArg(line, "m_pushf")));
-            return;
-        }
-
-        if (line.startsWith("m_pushb")) {
-            main.pushb(toBool(
-                    firstArg(line, "m_pushb")));
-            return;
-        }
-
         if (line.equals("printn")) {
             System.out.println();
         }
@@ -219,19 +183,8 @@ public class StackerFunction {
             return;
         }
 
-        if (arglessFunctions.containsKey(line.replace("s_", "")) &&
-                caller != null) {
-            try {
-                arglessFunctions.get(line).invoke(caller);
-            } catch (IllegalAccessException | InvocationTargetException ignored) {}
-            return;
-        }
-
-        if (arglessFunctions.containsKey(line.replace("m_", ""))) {
-            try {
-                arglessFunctions.get(line).invoke(main);
-            } catch (IllegalAccessException | InvocationTargetException ignored) {}
-        }
+        if (line.startsWith("s_")) caller.executeLine(line.replace("s_", ""));
+        if (line.startsWith("m_")) main.executeLine(line.replace("m_", ""));
 
     }
 
@@ -327,14 +280,13 @@ public class StackerFunction {
     }
 
     public void inputs() {
-        System.out.print(strStack.pop() + " \u001B[32m");
+        System.out.print(strStack.pop() + " ");
         Scanner scanner = new Scanner(System.in);
         strStack.push(scanner.nextLine());
-        System.out.print("\u001B[37m");
     }
 
     public void inputi() {
-        String prompt = strStack.pop() + " \u001B[32m";
+        String prompt = strStack.pop() + " ";
         System.out.print(prompt);
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -344,15 +296,14 @@ public class StackerFunction {
                 intStack.push(val);
                 break;
             } catch (Exception e) {
-                System.out.println("\u001B[37m" + next + " isn't a valid integer");
+                System.out.println(next + " isn't a valid integer");
                 System.out.print(prompt);
             }
         }
-        System.out.print("\u001B[37m");
     }
 
     public void inputf() {
-        String prompt = strStack.pop() + " \u001B[32m";
+        String prompt = strStack.pop() + " ";
         System.out.print(prompt);
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -362,22 +313,21 @@ public class StackerFunction {
                 floatStack.push(val);
                 break;
             } catch (Exception e) {
-                System.out.println("\u001B[37m" + next + " isn't a valid value");
+                System.out.println(next + " isn't a valid value");
                 System.out.print(prompt);
             }
         }
-        System.out.print("\u001B[37m");
     }
 
     public void inputb() {
-        String prompt = strStack.pop() + " \u001B[32m";
+        String prompt = strStack.pop() + " ";
         System.out.print(prompt);
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String next = scanner.nextLine();
 
             if (!next.equals("true") && !next.equals("false")) {
-                System.out.println("\u001B[37m" + next + " isn't a valid integer");
+                System.out.println(next + " isn't a valid integer");
                 System.out.print(prompt);
             } else {
                 boolean val = Boolean.parseBoolean(next);
@@ -385,7 +335,6 @@ public class StackerFunction {
                 break;
             }
         }
-        System.out.print("\u001B[37m");
     }
 
     public void opi() {
@@ -769,6 +718,38 @@ public class StackerFunction {
         boolean b = boolStack.pop();
         boolStack.push(a);
         boolStack.push(b);
+    }
+
+    void randomi() {
+        intStack.push(new Random().nextInt(intStack.pop()));
+    }
+
+    void randomf() {
+        floatStack.push(new Random().nextFloat() * floatStack.pop());
+    }
+
+    void itof() {
+        floatStack.push((float)intStack.pop());
+    }
+
+    void ftoi() {
+        intStack.push(Math.round(floatStack.pop()));
+    }
+
+    void stri() {
+        strStack.push(intStack.pop() + "");
+    }
+
+    void strf() {
+        strStack.push(floatStack.pop() + "");
+    }
+
+    void strs() {
+        strStack.push(strStack.pop() + "");
+    }
+
+    void strb() {
+        strStack.push(boolStack.pop() + "");
     }
 
     String[] getArgs(String line, String command) {
