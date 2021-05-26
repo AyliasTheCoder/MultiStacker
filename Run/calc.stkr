@@ -1,0 +1,10 @@
+pushs Input Number A:
+pushs Input Number B:
+pushs Input Operation:
+revs
+inputf
+inputf
+inputs
+opf
+printf
+stop

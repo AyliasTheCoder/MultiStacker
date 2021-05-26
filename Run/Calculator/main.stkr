@@ -1,0 +1,12 @@
+pushs Input Number A:
+pushs Input Number B:
+pushs Input Operation:
+revs
+inputf
+inputf
+inputs
+opf
+cloneb
+if_printi
+not
+if_printb

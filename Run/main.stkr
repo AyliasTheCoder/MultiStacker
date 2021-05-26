@@ -1,22 +1,89 @@
-stacki 2
-stacki 3
-clonei
-stacks Input
-stacks Number
-stacks A
+# push the info that will be printed for the user
+pushs Info:
+pushs tm = Truth Machine
+pushs cl = Calculator
+pushs hu = Hello, User
+pushs hw = Hello, World! Loop
+pushs cancel to cancel
+pushs What do you want to run?
 revs
-merge
-stacks B
-stacks Number
-stacks Input
-merge
-stacks Operation
-stacks Input
-merge
-revs
-inputf
-inputf
-revf
+
+# print all the info out to the screen
+prints
+printn
+prints
+printn
+prints
+printn
+prints
+printn
+prints
+printn
+prints
+printn
+
+# ask the user what program to run
 inputs
-opf
-printf
+
+# everything starting here is repeated for each possible input
+# clone their input so it can be checked again
+clones
+
+# push the input to be checked
+pushs tm
+ands
+
+# push the proposed program
+pushs truth
+
+# run if the user input it
+aif
+
+# repeats
+clones
+pushs cl
+ands
+pushs calc
+aif
+
+# repeats
+clones
+pushs hu
+ands
+pushs hello
+aif
+
+# repeats
+clones
+pushs co
+ands
+pushs compare
+aif
+
+# repeats
+clones
+pushs hw
+ands
+cloneb
+pushs hello world
+pushs How many times do you want to run it?
+inputi
+afor
+if_stop
+
+# detect if the user typed cancel
+clones
+pushs cancel
+ands
+if_stop
+
+# notifies the user that they put an invalid entry
+pushs Error: You did not put a valid entry. You put
+pushi 2
+merge
+prints
+printn
+
+# run main again
+pushs main
+arun

@@ -1,0 +1,13 @@
+pushi 0
+pushs Input 0 or 1:
+inputi
+greateri
+pushs ones
+pushi 0
+pushi 0
+pushi 0
+pushi 0
+while
+pushi 0
+printi
+stop

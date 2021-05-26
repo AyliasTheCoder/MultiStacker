@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Stacker:jar">
+  <artifact type="jar" name="stacker:jar">
     <output-path>$PROJECT_DIR$/Run</output-path>
-    <root id="archive" name="Stacker.jar">
+    <root id="archive" name="stacker.jar">
       <element id="module-output" name="Stacker" />
     </root>
   </artifact>
